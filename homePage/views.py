@@ -24,7 +24,17 @@ def create(request):
         user_in_session = User.objects.get(id = request.session['user_id'])
         print(user_in_session)
         message.objects.postMessage(request.POST, user_in_session)
+        return redirect('/posts')
+def newComment(request):
+    if not 'user_id' in request.session:
         return redirect('/')
+    else:
+        user_in_session = User.objects.get(id = request.session['user_id'])
+        this_message = message.objects.get(id = request.POST['id'])
+        print(user_in_session)
+        print(message.message)
+        comment.objects.post(request.POST, user_in_session, this_message)
+        return redirect('/posts')
 def logout(request):
-    return redirect('/logout')
+    return redirect('/logout') 
 

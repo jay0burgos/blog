@@ -17,6 +17,12 @@ class messageManager(models.Manager):
         return error
 
 class commentManager(models.Manager):
+    def post(self,data, user, message):
+        return self.create(
+            comment = data['comment'],
+            message = message,
+            user = user)
+
     def validation(self, data):
         error = {}
         if len(data['comment']) < 15:

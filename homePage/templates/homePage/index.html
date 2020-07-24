@@ -6,14 +6,14 @@
     <title>Document</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     {% load static %}
-    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="{% static 'homePage/style.css' %}">
 
 </head>
 <body>
     <p>youre logged in {{user.first_name}}</p>
     <div>
-        <button><a href="logout">Log Out!</a></button>
-    </div>
+        <button><a href="/logout">Log Out!</a></button>
+    
 
         <form action="post" method="post">
             {% csrf_token %}
@@ -21,10 +21,40 @@
                 <label for="message">
                     Post a message
                 </label>
-                <textarea name="message" id="message" cols="30" rows="10">Min lenght is 15 characters</textarea>
+                <textarea name="message" id="message" cols="100" rows="5" class="form-control">Min lenght is 15 characters</textarea>
             </div>
             <button class="btn btn-primary">POST</button>
+        </form>
        
+    
+    <div class="posts">
+        <ul class="list-group">
+            {% for message in messages %}
+                <li class="list-group-item">
+                    <h5>{{message.user.first_name}}</h5>
+                    {{message.message}}
+                    <form action="comment" method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <textarea name="comment" id="comment" cols="40" rows="3" class="form-control">Min lenght is 15 characters</textarea>
+                            <button class="btn btn-primary">comment</button>
+                            <input type="hidden" name="id" value="{{message.id}}">
+                        </div>
+
+                        
+                    </form>
+                    <ul class="list-group">
+                        {% for comment in message.comments.all %}
+                            <li class="list-group-item"> 
+                                <h5>{{ comment.user.first_name }}</h5>
+                                {{comment.comment}}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+        </ul>
     </div>
+
 </body>
 </html>

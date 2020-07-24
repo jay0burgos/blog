@@ -1,0 +1,17 @@
+.posts{
+    color: black;
+}
+
+body {
+    background-color: rgb(72, 75, 75);
+    padding: 2em;
+}
+
+#wrapper {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+form{
+    display: block;
+}

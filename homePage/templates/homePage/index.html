@@ -31,8 +31,14 @@
         <ul class="list-group">
             {% for message in messages %}
                 <li class="list-group-item">
-                    <h5>{{message.user.first_name}}</h5>
-                    {{message.message}}
+                    <div>
+                        <h5>{{message.user.first_name}}</h5>
+                    <p>{{message.message}}</p>
+                    {% if message.user.email == user.email %}
+                        <button><a href="delete/{{message.id}}">Delete</a></button>
+                    {% endif %}
+                    </div>
+                    
                     <form action="comment" method="post">
                         {% csrf_token %}
                         <div class="form-group">

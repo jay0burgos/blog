@@ -6,6 +6,7 @@ urlpatterns = [
     path('', views.index),
     path('post', views.create),
     path('logout', views.logout),
-    path('comment', views.newComment)
+    path('comment', views.newComment),
+    path('delete/<int:message_id>',views.delete)
 ]
 

@@ -38,3 +38,6 @@ def newComment(request):
 def logout(request):
     return redirect('/logout') 
 
+def delete(request, message_id):
+    message.objects.get(id = message_id ).delete()
+    return redirect('/posts')
